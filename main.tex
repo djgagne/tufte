@@ -25,9 +25,9 @@
 \setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
 \graphicspath{{graphics/}}
 
-\title{An Example of the Usage of the Tufte-Handout Style\thanks{Inspired by Edward~R. Tufte!}}
-\author[The Tufte-LaTeX Developers]{The Tufte-\LaTeX\ Developers}
-\date{24 January 2009}  % if the \date{} command is left out, the current date will be used
+\title{Presenting Data and Information: A Summary of the Edward Tufte Course and Its Relevant Lessons for NCAR Scientists}
+\author[David John Gagne]{David John Gagne II}
+\date{25 July 2017}  % if the \date{} command is left out, the current date will be used
 
 % The following package makes prettier tables.  We're all about the bling!
 \usepackage{booktabs}
@@ -46,7 +46,7 @@
 
 % Provides paragraphs of dummy text
 \usepackage{lipsum}
-
+\usepackage{url}
 % These commands are used to pretty-print LaTeX commands
 \newcommand{\doccmd}[1]{\texttt{\textbackslash#1}}% command name -- adds backslash automatically
 \newcommand{\docopt}[1]{\ensuremath{\langle}\textrm{\textit{#1}}\ensuremath{\rangle}}% optional command argument
@@ -62,255 +62,47 @@
 \maketitle% this prints the handout title, author, and date
 
 \begin{abstract}
-\noindent This document describes the Tufte handout \LaTeX\ document style.
-It also provides examples and comments on the style's use.  Only a brief
-overview is presented here; for a complete reference, see the sample book.
+\noindent I recently attended the one-day course on ``Presenting Data and Information" by Edward Tufte, a major pioneer of data visualization, thanks to generous support from Dr. Doug Nychka and IMAGe. During the course, Tufte covered important principles of analytical design and guidelines for giving effective presentations. He also provided his perspective on a wide range of topics related to data visualization and showcased visualizations that exemplified his design principles. In this seminar, I will highlight important lessons from the course, analyze some of the featured visualizations, and discuss how NCAR scientists can incorporate these design principles into their scientific workflows.
 \end{abstract}
 
-%\printclassoptions
-
-The Tufte-\LaTeX\ document classes define a style similar to the
-style Edward Tufte uses in his books and handouts.  Tufte's style is known
-for its extensive use of sidenotes, tight integration of graphics with
-text, and well-set typography.  This document aims to be at once a
-demonstration of the features of the Tufte-\LaTeX\ document classes
-and a style guide to their use.
-
-\section{Page Layout}\label{sec:page-layout}
-\subsection{Headings}\label{sec:headings}
-This style provides \textsc{a}- and \textsc{b}-heads (that is,
-\Verb|\section| and \Verb|\subsection|), demonstrated above.
-
-The Tufte-\LaTeX\ classes will emit an error if you try to use
-\linebreak\Verb|\subsubsection| and smaller headings.
-
-% let's start a new thought -- a new section
-\newthought{In his later books},\cite{Tufte2006} Tufte
-starts each section with a bit of vertical space, a non-indented paragraph,
-and sets the first few words of the sentence in \textsc{small caps}.  To
-accomplish this using this style, use the \Verb|\newthought| command:  
-\begin{docspec}
-  \doccmd{newthought\{In his later books\}, Tufte starts\ldots}
-\end{docspec}
-
-\subsection{Sidenotes}\label{sec:sidenotes}
-One of the most prominent and distinctive features of this style is the
-extensive use of sidenotes.  There is a wide margin to provide ample room
-for sidenotes and small figures.  Any \Verb|\footnote|s will automatically
-be converted to sidenotes.\footnote{This is a sidenote that was entered
-using the \texttt{\textbackslash footnote} command.}  If you'd like to place ancillary
-information in the margin without the sidenote mark (the superscript
-number), you can use the \Verb|\marginnote| command.\marginnote{This is a
-margin note.  Notice that there isn't a number preceding the note, and
-there is no number in the main text where this note was written.}
-
-The specification of the \Verb|\sidenote| command is:
-\begin{docspec}
-  \doccmd{sidenote[\docopt{number}][\docopt{offset}]\{\docarg{Sidenote text.}\}}
-\end{docspec}
-
-Both the \docopt{number} and \docopt{offset} arguments are optional.  If you
-provide a \docopt{number} argument, then that number will be used as the
-sidenote number.  It will change of the number of the current sidenote only and
-will not affect the numbering sequence of subsequent sidenotes.
-
-Sometimes a sidenote may run over the top of other text or graphics in the
-margin space.  If this happens, you can adjust the vertical position of the
-sidenote by providing a dimension in the \docopt{offset} argument.  Some
-examples of valid dimensions are:
-\begin{docspec}
-  \ttfamily 1.0in \qquad 2.54cm \qquad 254mm \qquad 6\Verb|\baselineskip|
-\end{docspec}
-If the dimension is positive it will push the sidenote down the page; if the
-dimension is negative, it will move the sidenote up the page.
-
-While both the \docopt{number} and \docopt{offset} arguments are optional, they
-must be provided in order.  To adjust the vertical position of the sidenote
-while leaving the sidenote number alone, use the following syntax:
-\begin{docspec}
-  \doccmd{sidenote[][\docopt{offset}]\{\docarg{Sidenote text.}\}}
-\end{docspec}
-The empty brackets tell the \Verb|\sidenote| command to use the default
-sidenote number.
-
-If you \emph{only} want to change the sidenote number, however, you may
-completely omit the \docopt{offset} argument:
-\begin{docspec}
-  \doccmd{sidenote[\docopt{number}]\{\docarg{Sidenote text.}\}}
-\end{docspec}
-
-The \Verb|\marginnote| command has a similar \docarg{offset} argument:
-\begin{docspec}
-  \doccmd{marginnote[\docopt{offset}]\{\docarg{Margin note text.}\}}
-\end{docspec}
-
-\subsection{References}
-References are placed alongside their citations as sidenotes,
-as well.  This can be accomplished using the normal \Verb|\cite|
-command.\sidenote{The first paragraph of this document includes a citation.}
-
-The complete list of references may also be printed automatically by using
-the \Verb|\bibliography| command.  (See the end of this document for an
-example.)  If you do not want to print a bibliography at the end of your
-document, use the \Verb|\nobibliography| command in its place.  
-
-To enter multiple citations at one location,\cite{Tufte2006,Tufte1990} you can
-provide a list of keys separated by commas and the same optional vertical
-offset argument: \Verb|\cite{Tufte2006,Tufte1990}|.  
-\begin{docspec}
-  \doccmd{cite[\docopt{offset}]\{\docarg{bibkey1,bibkey2,\ldots}\}}
-\end{docspec}
-
-\section{Figures and Tables}\label{sec:figures-and-tables}
-Images and graphics play an integral role in Tufte's work.
-In addition to the standard \docenv{figure} and \docenv{tabular} environments,
-this style provides special figure and table environments for full-width
-floats.
-
-Full page--width figures and tables may be placed in \docenv{figure*} or
-\docenv{table*} environments.  To place figures or tables in the margin,
-use the \docenv{marginfigure} or \docenv{margintable} environments as follows
-(see figure~\ref{fig:marginfig}):
-
-\begin{marginfigure}%
-  \includegraphics[width=\linewidth]{helix}
-  \caption{This is a margin figure.  The helix is defined by 
-    $x = \cos(2\pi z)$, $y = \sin(2\pi z)$, and $z = [0, 2.7]$.  The figure was
-    drawn using Asymptote (\url{http://asymptote.sf.net/}).}
-  \label{fig:marginfig}
-\end{marginfigure}
-\begin{Verbatim}
-\begin{marginfigure}
-  \includegraphics{helix}
-  \caption{This is a margin figure.}
-\end{marginfigure}
-\end{Verbatim}
-
-The \docenv{marginfigure} and \docenv{margintable} environments accept an optional parameter \docopt{offset} that adjusts the vertical position of the figure or table.  See the ``\nameref{sec:sidenotes}'' section above for examples.  The specifications are:
-\begin{docspec}
-  \doccmd{begin\{marginfigure\}[\docopt{offset}]}\\
-  \qquad\ldots\\
-  \doccmd{end\{marginfigure\}}\\
-  \mbox{}\\
-  \doccmd{begin\{margintable\}[\docopt{offset}]}\\
-  \qquad\ldots\\
-  \doccmd{end\{margintable\}}\\
-\end{docspec}
-
-Figure~\ref{fig:fullfig} is an example of the \Verb|figure*|
-environment and figure~\ref{fig:textfig} is an example of the normal
-\Verb|figure| environment.
-
-\begin{figure*}[h]
-  \includegraphics[width=\linewidth]{sine.pdf}%
-  \caption{This graph shows $y = \sin x$ from about $x = [-10, 10]$.
-  \emph{Notice that this figure takes up the full page width.}}%
-  \label{fig:fullfig}%
-\end{figure*}
+Edward Tufte is a professor emeritus of political science, statistics, and computer science at Yale University. He is a pioneer in the field of data visualization and information design and has written four books on the subject: \textit{The Visual Display of Quantitative Information}, \textit{Envisioning Information}, \textit{Visual Explanations}, and \textit{Beautiful Evidence}. In his books, he discusses many examples of effective and defective visualizations and how design choices can either illuminate or obscure the information being presented. Through his course, Tufte explains his views on data visualization.
 
 \begin{figure}
-  \includegraphics{hilbertcurves.pdf}
-%  \checkparity This is an \pageparity\ page.%
-  \caption{Hilbert curves of various degrees $n$.
-  \emph{Notice that this figure only takes up the main textblock width.}}
-  \label{fig:textfig}
-  %\zsavepos{pos:textfig}
-  \setfloatalignment{b}
+\includegraphics[width=\textwidth]{Minard.png}
+\caption{A map of the French Army's march through Russia in the winter of 1812-1813 by Charles Joseph Minard.}
 \end{figure}
 
-Table~\ref{tab:normaltab} shows table created with the \docpkg{booktabs}
-package.  Notice the lack of vertical rules---they serve only to clutter
-the table's data.
+\section{Principles of Analytical Design}
+Charles Joseph Minard's data map of the march of Napoleon's army to Moscow and back exemplifies all of the fundamental principles of analytical design\footnote{For a full discussion of these principles, read Tufte, E., \textit{Beautiful Evidence}, pages 122-139.}. The first principle is to \textit{show comparisons, contrasts, and differences}. The Minard map compares the size of the Army through time with the width of the line and annotations of the Army size at different times. The second principle is to \textit{show causality, mechanism, explanation, and systematic structure}. The Minard map links the deaths on the retreat to a series of cold temperatures along the route.
 
-\begin{table}[ht]
-  \centering
-  \fontfamily{ppl}\selectfont
-  \begin{tabular}{ll}
-    \toprule
-    Margin & Length \\
-    \midrule
-    Paper width & \unit[8\nicefrac{1}{2}]{inches} \\
-    Paper height & \unit[11]{inches} \\
-    Textblock width & \unit[6\nicefrac{1}{2}]{inches} \\
-    Textblock/sidenote gutter & \unit[\nicefrac{3}{8}]{inches} \\
-    Sidenote width & \unit[2]{inches} \\
-    \bottomrule
-  \end{tabular}
-  \caption{Here are the dimensions of the various margins used in the Tufte-handout class.}
-  \label{tab:normaltab}
-  %\zsavepos{pos:normaltab}
-\end{table}
+The third principle is to \textit{show multivariate data}, which in the Minard map can be seen with six dimensions of information clearly laid out on one image. The fourth principle recommends \textit{completely integrating words, numbers, images, and diagrams}. In his graphic, Minard includes text describing the chart, the path of the Army, annotations of the number of soldiers at different points, rivers, and both a time series and text representations of the temperature. These are combined together on the same image to use as many modes of evidence as possible to do everything it takes to explain something. 
 
-\section{Full-width text blocks}
+The fifth principle is to \textit{thoroughly describe the evidence. Provide a detailed title, indicate the authors and sponsors, document the data sources, show complete measurement scales, and point out relevant issues}. Minard documents all of his sources of information, his assumptions, and provides measurement scales for all data in order to bolster the credibility of the graphic. The final principle is that \textit{analytical presentations ultimately stand or fall depending on the quality, relevance, and integrity of their content}. Minard's graphic is powerful because of the underlying narrative about the horrors of war expressed through the depiction of the march. The most effective way to improve a presentation is to get better content.
 
-In addition to the new float types, there is a \docenv{fullwidth}
-environment that stretches across the main text block and the sidenotes
-area.
+\section{Effective Presentations}
+Tufte wants us to present our evidence more effectively so that our audiences are better informed and can make wiser decisions. Unfortunately, the prevalence of PowerPoint slide presentations and the cognitive framework induced by them has led to shallower analysis and the obfuscation of important or inconvenient evidence under a pile of bullet points. The frequent use of slides, as opposed to narrative documents like memos or technical reports, contributed to the decisions that doomed both the Challenger and Columbia space shuttles\footnote{The Columbia investigation is described in \textit{Beautiful Evidence}, pages 162-168; the Challenger accident is covered in \textit{Visual Explanations}, pages 38-52.}. The key issues are that slides break information into separate chunks in time, slides are a far lower resolution medium than paper and even speech, and bullet points enforce a false hierarchy of information often disconnected from causality or the true narrative of the evidence.
 
-\begin{Verbatim}
-\begin{fullwidth}
-Lorem ipsum dolor sit amet...
-\end{fullwidth}
-\end{Verbatim}
+To break free from the shackles of PowerPoint, Tufte recommends using narrative documents as the primary medium for the meeting, or in short, use Word instead of PowerPoint. The presenter should arrive early as a precaution against technical and logistical difficulties and as a sign of respect to the audience. At the beginning of the meeting, the presenter should distribute a narrative handout with relevant graphics approximately 4 pages in length. The audience should spend the first 5-10 minutes of the meeting reading the document. Then, the presenter guides the audience through the document and moderates any resulting discussions. PowerPoint can still be used to display graphics and videos. Any visualizations should be created with the principles of analytical design in mind and should not be dumbed down. Having endless respect and optimism about the audience is key and will show through your presentation style. Finally, the presenter should finish early because it respects the audience's time. 
+\section{Relevant Lessons for NCAR Scientists}
+In addition to the broader themes of analytical design and effective presentations, Tufte offered commentary and advice on a wide range of issues related to information visualization. When constructing visualizations on lower resolution displays, spatial scrolling instead of temporal stacking is the preferred way to layer information. Slow panning of images can provide the illusion of depth while conveying more spatial information in a given time frame. Direct annotation of points on a plot conveys meaning more quickly and directly than decoding through a legend. Simple tables of numbers can convey more information than a stack of bar, pie, and line charts. Mixing text and graphics creates far more effective visuals than using either in isolation\footnote{\includegraphics[width=2.5in]{ccsm_video.png} NCAR CCSM climate change simulation visualization.}. 
 
-\begin{fullwidth}
-\small\itshape\lipsum[1]
-\end{fullwidth}
+What tools should be used to create data visualization and documentation? Tufte recommended Python, R, D3.js, and \LaTeX ~for high-end work and Adobe Illustrator for finishing publication-quality graphics. As a visualization and documentation medium, the Jupyter Notebook package, in my opinion, adheres very closely to Tufte's principles of analytical design and recommendations for effective presentations. Jupyter Notebooks consist of cells of either software code, text, or graphics arranged vertically. Users can input plain text, HTML, or \LaTeX ~into the text cells so that explanations, links, and equations are grouped together. The software cells link with kernels for many popular data analysis languages, including Python, R, and Julia; and the graphics are generated and displayed inline with the document. Notebooks can be viewed natively in the browser, export to pdf, or rendered on Github.
 
-\section{Typography}\label{sec:typography}
+One key strategy for building better visualizations is finding quality examples that convey similar kinds of information to one's own and emulating their design principles. Tufte recommends emulating visuals in your field that are successful in the wild. For general visualization, Tufte recommended Google Maps, the New York Times, ESPN, and xkcd. Figures in \textit{Science} and \textit{Nature} often have to compress a lot of information into a small area and receive many views, so they are another area to look for ideas. NCAR also has many experts in data visualization, and they have produced many exemplary visualizations that follow the analytical design principles. With the trend toward open source programming and open science, more science visualizations and their source code are now publicly available. For example, the LIGO gravitational wave detection group has published Jupyter Notebooks displaying their full analysis procedure for each event. Also, the \textit{Python Data Science Handbook} is available as a repository of Jupyter Notebooks for each section of the book. 
 
-\subsection{Typefaces}\label{sec:typefaces}
-If the Palatino, \textsf{Helvetica}, and \texttt{Bera Mono} typefaces are installed, this style
-will use them automatically.  Otherwise, we'll fall back on the Computer Modern
-typefaces.
+To conclude, I want you to consider your current scientific visualization and preparation framework. What tools and techniques have helped you create effective visualizations and presentations? What challenges do you continue to face when building and communicating visual scientific data? Where do you need to improve your visualization and presentation techniques the most?  
 
-\subsection{Letterspacing}\label{sec:letterspacing}
-This document class includes two new commands and some improvements on
-existing commands for letterspacing.
-
-When setting strings of \allcaps{ALL CAPS} or \smallcaps{small caps}, the
-letter\-spacing---that is, the spacing between the letters---should be
-increased slightly.\cite{Bringhurst2005}  The \Verb|\allcaps| command has proper letterspacing for
-strings of \allcaps{FULL CAPITAL LETTERS}, and the \Verb|\smallcaps| command
-has letterspacing for \smallcaps{small capital letters}.  These commands
-will also automatically convert the case of the text to upper- or
-lowercase, respectively.
-
-The \Verb|\textsc| command has also been redefined to include
-letterspacing.  The case of the \Verb|\textsc| argument is left as is,
-however.  This allows one to use both uppercase and lowercase letters:
-\textsc{The Initial Letters Of The Words In This Sentence Are Capitalized.}
-
-
-
-\section{Installation}\label{sec:installation}
-To install the Tufte-\LaTeX\ classes, simply drop the
-following files into the same directory as your \texttt{.tex}
-file:
-\begin{quote}
-  \ttfamily
-  tufte-common.def\\
-  tufte-handout.cls\\
-  tufte-book.cls
-\end{quote}
-
-% TODO add instructions for installing it globally
-
-
-
-\section{More Documentation}\label{sec:more-doc}
-For more documentation on the Tufte-\LaTeX{} document classes (including commands not
-mentioned in this handout), please see the sample book.
-
-\section{Support}\label{sec:support}
-
-The website for the Tufte-\LaTeX\ packages is located at
-\url{http://code.google.com/p/tufte-latex/}.  On our website, you'll find
-links to our \smallcaps{svn} repository, mailing lists, bug tracker, and documentation.
-
-\bibliography{sample-handout}
-\bibliographystyle{plainnat}
-
-
+\section{Visualization Examples}
+\begin{enumerate}
+\item National Weather Service Forecast Page\footnote{\includegraphics[width=2in]{nws_page.jpg} National Weather Service forecast page.}: \url{http://forecast.weather.gov/MapClick.php?lat=40.01574000000005&lon=-105.27923999999996
+}
+\item{Stephen Malinowski's Music Animation Machine\footnote{
+\includegraphics[width=2in]{rite_of_spring.jpg}
+Music Animation Machine depiction of Igor Stravinsky's \textit{The Rite of Spring}.}: \url{https://musanim.com/watch_mam.html}}
+\item{NCAR CCSM Climate Change Video: \url{https://www.vets.ucar.edu/vg/IPCC_CCSM3/index.shtml}}
+\item{LIGO Open Science Center: \url{https://losc.ligo.org/tutorials/}}
+\item{Python Data Science Handbook: \url{https://github.com/jakevdp/PythonDataScienceHandbook}}
+\item{NCAR Ensemble Sounding Viewer: \url{http://ensemble.ucar.edu/sounding.php?d=2017072400}}
+\end{enumerate}
 
 \end{document}
